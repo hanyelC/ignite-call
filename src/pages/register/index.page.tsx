@@ -49,6 +49,8 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
+
+      await router.push('/register/connect-calendar')
     } catch (error) {
       if (error instanceof AxiosError && error.response?.data.message) {
         alert(error.response.data.message)
@@ -74,41 +76,40 @@ export default function Register() {
         </Text>
 
         <MultiStep as="div" size={4} currentStep={1} />
-
-        <Form as="form" onSubmit={handleSubmit(handleRegister)}>
-          <label>
-            <Text size="sm">Nome de usuário</Text>
-            <TextInput
-              as="input"
-              prefix="ignite.com/"
-              placeholder="seu-usuário"
-              variants={{ size: 'md' }}
-              {...register('username')}
-            />
-            {errors.username && (
-              <FormError size="sm">{errors.username.message}</FormError>
-            )}
-          </label>
-
-          <label>
-            <Text size="sm">Nome completo</Text>
-            <TextInput
-              as="input"
-              placeholder="Seu nome"
-              variants={{ size: 'md' }}
-              {...register('name')}
-            />
-
-            {errors.name && (
-              <FormError size="sm">{errors.name.message}</FormError>
-            )}
-          </label>
-          <Button type="submit" disabled={isSubmitting}>
-            Próximo passo
-            <ArrowRight />
-          </Button>
-        </Form>
       </Header>
+      <Form as="form" onSubmit={handleSubmit(handleRegister)}>
+        <label>
+          <Text size="sm">Nome de usuário</Text>
+          <TextInput
+            as="input"
+            prefix="ignite.com/"
+            placeholder="seu-usuário"
+            variants={{ size: 'md' }}
+            {...register('username')}
+          />
+          {errors.username && (
+            <FormError size="sm">{errors.username.message}</FormError>
+          )}
+        </label>
+
+        <label>
+          <Text size="sm">Nome completo</Text>
+          <TextInput
+            as="input"
+            placeholder="Seu nome"
+            variants={{ size: 'md' }}
+            {...register('name')}
+          />
+
+          {errors.name && (
+            <FormError size="sm">{errors.name.message}</FormError>
+          )}
+        </label>
+        <Button type="submit" disabled={isSubmitting}>
+          Próximo passo
+          <ArrowRight />
+        </Button>
+      </Form>
     </Container>
   )
 }
